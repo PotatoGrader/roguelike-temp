@@ -15,4 +15,13 @@ end
 function GameObject:draw()
 end
 
+function GameObject:keypressed(key, scancode, isrepeat)
+end
+
+function GameObject:keyreleased(key)
+end
+
+function GameObject:textinput(text)
+end
+
 return GameObject

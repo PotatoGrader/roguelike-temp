@@ -21,6 +21,7 @@ function Loader:initialize()
   --]]
   self.path.source = "src/"
   self.path.lib = "src/lib/"
+  self.path.modificators = "src/obj/mod"
 end
 
 --[[
@@ -38,18 +39,28 @@ end
 function Loader:loadClass(name)
   return require (self.path.source .. name)
 end
+--[[
+    Requier modificator
+    Example: _LOAD:loadMod("hasorgans")
+--]]
+function Loader:loadMod(name)
+  return require(self.path.modificators .. name)
+end
 
 --[[
     Returning a loaded game state
     Example: _LOAD:loadState("testroom")
 --]]
 function Loader:loadState(name)
+
+  -- String-to-file protect
   if not (name) then
     name = "New"
   end
   if not (name:find(".state")) then
     name = name .. ".state"
   end
+
   local state = GameState:new()
   if love.filesystem.exists(self.path.gamestates .. name) then
     for v in love.filesystem.lines(self.path.gamestates .. name) do

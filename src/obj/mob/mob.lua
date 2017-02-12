@@ -6,29 +6,23 @@ local Mob = class('Mob', GameObject)
 function Mob:initialize(x, y, layer, holder)
   GameObject:initialize(x, y, layer)
   self.holder = holder  -- For User
-  self.isTalking = false
-
-  self.isStartTalking = false
 end
 
 function Mob:directInput(dt)
   if not(self.isTalking) then
     if(love.keyboard.isDown('w' or 'up')) then
       self.y = self.y - (32 * dt)
-    elseif(love.keyboard.isDown('s' or 'down')) then
+    end
+    if(love.keyboard.isDown('s' or 'down')) then
       self.y = self.y + (32 * dt)
-    elseif(love.keyboard.isDown('a' or 'left')) then
+    end
+    if(love.keyboard.isDown('a' or 'left')) then
       self.x = self.x - (32 * dt)
-    elseif(love.keyboard.isDown('d' or 'right')) then
+    end
+    if(love.keyboard.isDown('d' or 'right')) then
       self.x = self.x + (32 * dt)
     end
   end
-
-  if(love.keyboard.isDown('return') and self.isStartTalking == false) then
-    self.isTalking = not self.isTalking
-  end
-
-  self.isStartTalking = love.keyboard.isDown("return")
 end
 
 function Mob:update(dt)

@@ -11,10 +11,20 @@ function GameState:initialize(title)
   self.guiobjects = {}
   self.controllers = {}
   self.shaders = {}
+
+  self._isReady = false
 end
 
 function GameState:setTitle(title)
   self.title = title
+end
+
+function GameState:isReady()
+  return self._isReady
+end
+
+function GameState:setReady(state)
+  self._isReady = state or true
 end
 
 function GameState:addGameObject(gameObject)
@@ -55,6 +65,41 @@ function GameState:draw()
   end
   for _,v in ipairs(self.tiles) do
     v:draw()
+  end
+end
+
+-- KEYBOARD
+
+function GameState:keypressed(key, scancode, isrepeat)
+  for _,v in ipairs(self.guiobjects) do
+    v:keypressed(key, scancode, isrepeat)
+  end
+  for _,v in ipairs(self.gameobjects) do
+    if(v.holder) then
+      v:keypressed(key, scancode, isrepeat)
+    end
+  end
+end
+
+function GameState:keyreleased(key)
+  for _,v in ipairs(self.guiobjects) do
+    v:keyreleased(key)
+  end
+  for _,v in ipairs(self.gameobjects) do
+    if(v.holder) then
+      v:keyreleased(key)
+    end
+  end
+end
+
+function GameState:textinput(text)
+  for _,v in ipairs(self.guiobjects) do
+    v:textinput(text)
+  end
+  for _,v in ipairs(self.gameobjects) do
+    if(v.holder) then
+      v:textinput(text)
+    end
   end
 end
 
