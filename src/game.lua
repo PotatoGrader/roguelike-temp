@@ -1,18 +1,43 @@
-class = _LOAD:loadLib("middleclass")
-Stateful = _LOAD:loadLib("stateful")
+local class = _LOAD:loadLib("middleclass")
+local state = _LOAD:loadClass("gamestate")
 
 local Game = class('Game')
-Game:include(Stateful)
 
-function Game:initialize()
+-- MAIN GAME CLASS
 
+function Game:initialize(start_GameState)
+  self.current_gameState = _LOAD:loadState(start_GameState)
+  self.current_subGameStates = {}
+  self.gameStates = {}
 end
 
+-- UPDATE function
 function Game:update(dt)
+
+  if(self.current_gameState) then
+    self.current_gameState:update(dt)
+  end
+  if(#self.current_subGameStates ~= 0) then
+    for _,v in ipairs(self.current_subGameStates) do
+      v:update(dt)
+    end
+  end
+
 end
+
+-- DRAW function
 
 function Game:draw()
-  love.graphics.rectangle("line", 100, 100, 32, 32)
+
+  if(self.current_gameState) then
+    self.current_gameState:draw()
+  end
+  if(#self.current_subGameStates ~= 0) then
+    for _,v in ipairs(self.current_subGameStates) do
+      v:draw()
+    end
+  end
+
 end
 
 return Game
