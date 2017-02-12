@@ -6,9 +6,14 @@ local Game = class('Game')
 -- MAIN GAME CLASS
 
 function Game:initialize(start_GameState)
-  self.current_gameState = _LOAD:loadState(start_GameState)
-  self.current_subGameStates = {}
-  self.gameStates = {}
+  self.gameStates = _LOAD:loadGameStates()
+
+  for i, v in pairs(self.gameStates) do
+    if(i == 1) then
+      self.current_gameState = v
+      self.current_subGameStates = v.subStates
+    end
+  end
 end
 
 -- UPDATE function

@@ -2,7 +2,7 @@ local Loader = require "loader"
 _LOAD = Loader:new() -- Load System
 
 local Game = require "src/game"
-game = Game:new("testroom")
+game = Game:new()
 
 function love.load(arg)
 end
