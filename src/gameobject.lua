@@ -1,16 +1,14 @@
-class = _LOAD:loadLib("middleclass")
+local class = _LOAD:loadLib("middleclass")
 
-GameObject = class('GameObject')
+local GameObject = class('GameObject')
 
-function GameObject:initialize(x,y)
-  self.holder = nil  -- For User
+function GameObject:initialize(x,y, layer, holder)
   self.x = x
   self.y = y
   self.z = z
 end
 
 -- Abstract Funcs
-
 function GameObject:update(dt)
 end
 

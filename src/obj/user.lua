@@ -1,12 +1,10 @@
-local class = require "middleclass"
+local class = _LOAD:loadLib("middleclass")
 
-User = class('User')
+local User = class('User')
 
 function User:initialize()
-  self.key = 'USR-000-000'
+  self.key = 'USR'
   self.nick = 'Name'
 end
 
-function User:update(dt)
-
-end
+return User
