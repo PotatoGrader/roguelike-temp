@@ -15,6 +15,8 @@ function GameState:initialize(title)
   self._isReady = false
 end
 
+-- SETTINGS
+
 function GameState:setTitle(title)
   self.title = title
 end
@@ -27,9 +29,23 @@ function GameState:setReady(state)
   self._isReady = state or true
 end
 
+-- controllers
+
+function GameState:addController(controller)
+  table.insert(self.controllers, controller)
+end
+
+-- GAME OBJECTS FUNC
+
 function GameState:addGameObject(gameObject)
   table.insert(self.gameobjects, gameObject)
 end
+
+function GameState:getGameObjects()
+  return self.gameobjects
+end
+
+-- UPDATE FUNC
 
 function GameState:update(dt)
   for _,v in ipairs(self.controllers) do
@@ -49,9 +65,17 @@ function GameState:update(dt)
   end
 end
 
+-- DRAW FUNC
+
 function GameState:draw()
-  love.graphics.print(self.title)
-  for _,v in ipairs(self.controllers) do
+  love.graphics.print(self.title .. " " .. #self.controllers)
+  if (self.debug) then
+    love.graphics.print("\n" .. self.debug)
+  end
+  for _,v in ipairs(self.tiles) do
+    v:draw()
+  end
+  for _,v in ipairs(self.gameobjects) do
     v:draw()
   end
   for _,v in ipairs(self.shaders) do
@@ -60,10 +84,7 @@ function GameState:draw()
   for _,v in ipairs(self.guiobjects) do
     v:draw()
   end
-  for _,v in ipairs(self.gameobjects) do
-    v:draw()
-  end
-  for _,v in ipairs(self.tiles) do
+  for _,v in ipairs(self.controllers) do
     v:draw()
   end
 end

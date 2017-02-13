@@ -1,29 +1,17 @@
 local class = _LOAD:loadLib("middleclass")
 local GameState = _LOAD:loadClass("gamestate")
 
-local Mob = _LOAD:loadClass("/obj/mob/mob")
-local User = _LOAD:loadClass("/obj/user")
-
 local Game = class('Game')
 
 -- MAIN GAME CLASS
 
 function Game:initialize()
   -- Loading all states
+  self.current_gameState = _LOAD:loadState("testroom")
+  self.current_subGameStates = self.current_gameState.subStates
   self.buffered_gameState = _LOAD:loadState("loading")
   self.gameStates = _LOAD:loadGameStates()
-
-  -- Set current state
-  for i, v in pairs(self.gameStates) do
-    if(i == 1) then
-      self.current_gameState = v
-      self.current_subGameStates = v.subStates
-    end
-  end
-
-  user = User:new()
-  mob = Mob:new(100, 100, 1, user)
-  self.current_gameState:addGameObject(mob)
+  
   self.current_gameState:setReady()
 
 end
@@ -34,7 +22,7 @@ function Game:setState(target_State)
       self.current_gameState:setReady(false)
       self.current_gameState = state
       -- TODO Load function for generate
-      self.current_gameState:setReady(true)
+      self.current_gameState:setReady()
     end
   end
 end
