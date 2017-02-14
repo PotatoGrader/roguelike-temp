@@ -1,5 +1,6 @@
 local class = _LOAD:loadLib("middleclass")
-local GameState = _LOAD:loadClass("gamestate")
+local GameState = _LOAD:loadGState()
+local Testroom = _LOAD:loadGState("testroom")
 
 local Game = class('Game')
 
@@ -7,12 +8,11 @@ local Game = class('Game')
 
 function Game:initialize()
   -- Loading all states
-  self.current_gameState = _LOAD:loadState("testroom")
+  local state = Testroom:new()
+  self.current_gameState = state
   self.current_subGameStates = self.current_gameState.subStates
-  self.buffered_gameState = _LOAD:loadState("loading")
-  self.gameStates = _LOAD:loadGameStates()
-  
-  self.current_gameState:setReady()
+  self.buffered_gameState = nil --_LOAD:loadState("loading")
+  self.gameStates = {} -- _LOAD:loadGameStates()
 
 end
 
@@ -32,7 +32,7 @@ function Game:update(dt)
 
   if(self.current_gameState and self.current_gameState:isReady()) then
     self.current_gameState:update(dt)
-  else
+  elseif (self.buffered_gameState) then
     self.buffered_gameState:update(dt)
   end
   if(self.current_subGameStates) then
@@ -48,7 +48,7 @@ function Game:draw()
 
   if(self.current_gameState and self.current_gameState:isReady()) then
     self.current_gameState:draw()
-  else
+  elseif (self.buffered_gameState) then
     self.buffered_gameState:draw()
   end
   if(self.current_subGameStates) then
@@ -64,7 +64,7 @@ end
 function Game:keypressed(key, scancode, isrepeat)
   if(self.current_gameState and self.current_gameState:isReady()) then
     self.current_gameState:keypressed(key, scancode, isrepeat)
-  else
+  elseif (self.buffered_gameState) then
     self.buffered_gameState:keypressed(key, scancode, isrepeat)
   end
   if(self.current_subGameStates) then
@@ -77,7 +77,7 @@ end
 function Game:keyreleased(key)
   if(self.current_gameState and self.current_gameState:isReady()) then
     self.current_gameState:keyreleased(key)
-  else
+  elseif (self.buffered_gameState) then
     self.buffered_gameState:keyreleased(key)
   end
   if(self.current_subGameStates) then
@@ -90,7 +90,7 @@ end
 function Game:textinput(text)
   if(self.current_gameState and self.current_gameState:isReady()) then
     self.current_gameState:textinput(text)
-  else
+  elseif (self.buffered_gameState) then
     self.buffered_gameState:textinput(text)
   end
   if(self.current_subGameStates) then

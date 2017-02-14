@@ -16,7 +16,7 @@ local Controller = _LOAD:loadController()
 local Turner = class('Turner', Controller)
 
 function Turner:initialize(target_gameObjects)
-  Controller:initialize()
+  Controller.initialize(self)
   self._holderObj = target_gameObjects
   self.isReadyToTurn = true
 end
@@ -24,6 +24,8 @@ end
 function Turner:restart(target_gameObjects)
   self._holderObj = target_gameObjects
 end
+
+-- TURN FUNC
 
 function Turner:_turnEnd()
   if (self._holderObj) then
@@ -37,6 +39,7 @@ function Turner:_turnStart()
   if (self._holderObj) then
     for _,v in ipairs(self._holderObj) do
       v.isMoving = true
+      v:turn()
     end
   end
 end
@@ -60,10 +63,5 @@ function Turner:update(dt)
     self:_turnStart()
   end
 end
--- DRAW FUNC (for debug)
 
-function Turner:draw()
-  love.graphics.print("\n isReadyToTurn")
-
-end
 return Turner

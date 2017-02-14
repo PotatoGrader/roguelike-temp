@@ -1,2 +1,2 @@
 
-_STEP_SIZE = 32
+_STEP_SIZE = 1

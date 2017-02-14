@@ -68,10 +68,6 @@ end
 -- DRAW FUNC
 
 function GameState:draw()
-  love.graphics.print(self.title .. " " .. #self.controllers)
-  if (self.debug) then
-    love.graphics.print("\n" .. self.debug)
-  end
   for _,v in ipairs(self.tiles) do
     v:draw()
   end
