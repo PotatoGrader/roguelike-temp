@@ -9,7 +9,8 @@ local Controller = _LOAD:loadController()
     2 0 3
     - 4 -
     USE 5 for WAITING
-
+    USE 6 for ANYDIR
+    
     ISMOVING: if all mobs make a choice then make a turn, else wait
 --]]
 
@@ -39,7 +40,7 @@ function Turner:_turnStart()
   if (self._holderObj) then
     for _,v in ipairs(self._holderObj) do
       v.isMoving = true
-      v:turn()
+      v:move()
     end
   end
 end

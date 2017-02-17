@@ -1,2 +1,3 @@
 
-_STEP_SIZE = 1
+_STEP_SIZE = 4
+_TILE_SIZE = 32

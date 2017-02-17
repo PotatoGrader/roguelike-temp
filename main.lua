@@ -37,9 +37,11 @@ function love.wheelmoved(x, y)
 end
 
 function love.mousepressed(x, y, button, isTouch)
+  _GAME:mousepressed(x, y, button, isTouch)
 end
 
 function love.mousereleased(x, y, button, isTouch)
+  _GAME:mousereleased(x, y, button, isTouch)
 end
 
 -- KEYBOARD's CALLBACKS

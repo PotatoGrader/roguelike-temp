@@ -100,4 +100,31 @@ function Game:textinput(text)
   end
 end
 
+-- MOUSE FUNC
+function Game:mousepressed(x, y, button, isTouch)
+  if(self.current_gameState and self.current_gameState:isReady()) then
+    self.current_gameState:mousepressed(x, y, button, isTouch)
+  elseif (self.buffered_gameState) then
+    self.buffered_gameState:mousepressed(x, y, button, isTouch)
+  end
+  if(self.current_subGameStates) then
+    for _,v in ipairs(self.current_subGameStates) do
+      v:mousepressed(x, y, button, isTouch)
+    end
+  end
+end
+
+function Game:mousereleased(x, y, button, isTouch)
+  if(self.current_gameState and self.current_gameState:isReady()) then
+    self.current_gameState:mousereleased(x, y, button, isTouch)
+  elseif (self.buffered_gameState) then
+    self.buffered_gameState:mousereleased(x, y, button, isTouch)
+  end
+  if(self.current_subGameStates) then
+    for _,v in ipairs(self.current_subGameStates) do
+      v:mousereleased(x, y, button, isTouch)
+    end
+  end
+end
+
 return Game

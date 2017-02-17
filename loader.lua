@@ -51,10 +51,10 @@ end
 
 --[[
     Require gamestate, if name = nil using default gamestate
-    Example: _LOAD:loadClass("gamestate")
+    Example: _LOAD:loadGState("testroom")
 --]]
 
-function Loader:loadGState (name)
+function Loader:loadGState(name)
   local path = self.path.gamestates
   if(name)then
     path = path .. name
@@ -89,7 +89,7 @@ end
 
 --[[
     Requier game object
-    Example: _LOAD:loadGO("item")
+    Example: _LOAD:loadGObj("item")
 --]]
 function Loader:loadGObj(name)
   local path = self.path.gameobjects
@@ -104,7 +104,7 @@ end
 
 --[[
     Requier controller
-    Example: _LOAD:loadMod("hasorgans")
+    Example: _LOAD:loadController("Turner")
 --]]
 function Loader:loadController(name)
   local path = self.path.controllers

@@ -120,4 +120,30 @@ function GameState:textinput(text)
   end
 end
 
+-- MOUSE FUNC
+
+function GameState:mousepressed(x,y,button,isTouch)
+  for _,v in ipairs(self.gameobjects) do
+    v:mousepressed(x,y,button,isTouch)
+  end
+  for _,v in ipairs(self.guiobjects) do
+    v:mousepressed(x,y,button,isTouch)
+  end
+  for _,v in ipairs(self.controllers) do
+    v:mousepressed(x,y,button,isTouch)
+  end
+end
+
+function GameState:mousereleased(x,y,button,isTouch)
+  for _,v in ipairs(self.gameobjects) do
+    v:mousereleased(x,y,button,isTouch)
+  end
+  for _,v in ipairs(self.guiobjects) do
+    v:mousereleased(x,y,button,isTouch)
+  end
+  for _,v in ipairs(self.controllers) do
+    v:mousereleased(x,y,button,isTouch)
+  end
+end
+
 return GameState

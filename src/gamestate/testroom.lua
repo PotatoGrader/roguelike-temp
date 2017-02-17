@@ -15,10 +15,8 @@ function Testroom:initialize()
   local turner = Turner:new(self.gameobjects)
   self:addController(turner)
 
-  local mob1 = Mob:new(96,128,1,user)
-  local mob2 = Mob:new(256, 128, 1, nil)
+  local mob1 = Mob:new(256,128,1,user)
   self:addGameObject(mob1)
-  self:addGameObject(mob2)
   self:setReady()
 
 end
