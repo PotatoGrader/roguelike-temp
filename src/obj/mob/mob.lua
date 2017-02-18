@@ -15,20 +15,33 @@ function Mob:initialize(x, y, layer, holder)
   self.jumpPowerY = 0
 end
 
-Mob.static.maxPowerRad = 4
+Mob.static.maxPowerRad = 64
 
 function Mob:move()
-  if(self.dir == 6) then
-    if(self.jumpPowerX ~= 0) then
-      self.x = self.x + self.jumpPowerX
-      self.jumpPowerX = 0
-    end
-    if(self.jumpPowerY ~= 0) then
-      self.y = self.y + self.jumpPowerY
-      self.jumpPowerY = 0
-    end
-    self.dir = 0
+
+  if(self.dir == 1) then
+    self.y = self.y - _TILE_SIZE
+  elseif(self.dir == 2) then
+    self.x = self.x - _TILE_SIZE
+  elseif(self.dir == 3) then
+    self.x = self.x + _TILE_SIZE
+  elseif(self.dir == 4) then
+    self.y = self.y + _TILE_SIZE
+  elseif(self.dir == 5) then
+    -- Just WAITING
+  elseif(self.dir == 6) then
+
+      if(self.jumpPowerX ~= 0) then
+        self.x = self.x + self.jumpPowerX
+        self.jumpPowerX = 0
+      end
+
+      if(self.jumpPowerY ~= 0) then
+        self.y = self.y + self.jumpPowerY
+        self.jumpPowerY = 0
+      end
   end
+  self.dir = 0
 end
 
 -- UPDATE FUNC
@@ -76,6 +89,21 @@ function Mob:mousereleased (x,y,button,isTouch)
   self.isMouseDrag = false
 end
 
+function Mob:keyreleased(key)
+  if(self.holder) and (self.holder.key) then
+
+    if(key == 'w') then
+      self.dir = 1
+    elseif(key == 's') then
+      self.dir = 4
+    elseif(key == 'a') then
+      self.dir = 2
+    elseif(key == 'd') then
+      self.dir = 3
+    end
+
+  end
+end
 -- DRAW FUNC
 
 function Mob:draw()
