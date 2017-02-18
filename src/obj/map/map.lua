@@ -6,31 +6,42 @@ function Map:initialize(width, height)
   self.width  = width
   self.height = height
   self.tilesize = 32
-  self.mapdata = {}
+  self.layers = {}
+  self.tiledata = {}
   -- Sti.new('maps/map1.lua')
   self:reset()
 end
 
 function Map:reset()
--- generate map?
+-- TODO implement importing tiledata
+
+local tile = {}
+tile.id = 0
+tile.image = love.graphics.newImage( "res/img/floor.png" )
+self.tiledata[0] = tile
+local tile = {}
+tile.id = 1
+tile.image = love.graphics.newImage( "res/img/wall.png" )
+self.tiledata[1] = tile
+
+
+self.layers.mapdata = {}
   local width, height = self.width, self.height
   for i=1,height do
-    self.mapdata[i] = {}
+    self.layers.mapdata[i] = {}
     for j=1,width do
-      local tile = {id = 0}
-      self.mapdata[i][j] = tile
+      self.layers.mapdata[i][j] = self.tiledata[0]
     end
   end
 
-
   -- TEMPORARY
   for i=1,height do
-    self.mapdata[i][1].id = 1
-    self.mapdata[i][width].id = 1
+    self.layers.mapdata[i][1] = self.tiledata[1]
+    self.layers.mapdata[i][width] = self.tiledata[1]
   end
   for i=1,width do
-    self.mapdata[1][i].id = 1
-    self.mapdata[height][i].id = 1
+    self.layers.mapdata[1][i] = self.tiledata[1]
+    self.layers.mapdata[height][i] = self.tiledata[1]
   end
 
 
@@ -47,17 +58,7 @@ function Map:draw()
   local tilesize = self.tilesize
   for i=1,height do
     for j=1,width do
-      if self.mapdata[i][j].id == 1 then
-        love.graphics.setColor(255, 255, 255, 100)
-        love.graphics.rectangle('fill', (j-1)*tilesize, (i-1)*tilesize, tilesize, tilesize)
-        love.graphics.setColor(180, 180, 180, 255)
-        love.graphics.rectangle('line', (j-1)*tilesize, (i-1)*tilesize, tilesize, tilesize)
-      elseif self.mapdata[i][j].id == 0 then
-        love.graphics.setColor(40, 40, 40, 100)
-        love.graphics.rectangle('fill', (j-1)*tilesize, (i-1)*tilesize, tilesize, tilesize)
-        love.graphics.setColor(40, 40, 40, 255)
-        love.graphics.rectangle('line', (j-1)*tilesize, (i-1)*tilesize, tilesize, tilesize)
-      end
+        love.graphics.draw( self.layers.mapdata[i][j].image, (j-1)*tilesize, (i-1)*tilesize)
     end
   end
 
