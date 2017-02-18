@@ -15,7 +15,7 @@ function Mob:initialize(x, y, layer, holder)
   self.jumpPowerY = 0
 end
 
-Mob.static.maxPowerRad = 4
+Mob.static.maxPowerRad = 64
 
 function Mob:move()
   if(self.dir == 6) then

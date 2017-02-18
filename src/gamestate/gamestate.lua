@@ -1,4 +1,5 @@
 local class = require "src/lib/middleclass"
+local Map = require "src/obj/map/map"
 
 local GameState = class('GameState')
 
@@ -11,6 +12,7 @@ function GameState:initialize(title)
   self.guiobjects = {}
   self.controllers = {}
   self.shaders = {}
+  self.map = Map:new(50,50)
 
   self._isReady = false
 end
@@ -68,6 +70,7 @@ end
 -- DRAW FUNC
 
 function GameState:draw()
+  self.map:draw()
   for _,v in ipairs(self.tiles) do
     v:draw()
   end
