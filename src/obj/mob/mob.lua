@@ -50,7 +50,7 @@ function Mob:update(dt)
   GameObject.update(self, dt)
 
   if(self.holder) and (self.holder.key) then
-    if(self.dir == 0) and (self.isMouseDrag) then
+    if (self.isMouseDrag) then
 
       local distance_X =  self.originX -
         love.mouse.getX()
@@ -81,7 +81,7 @@ end
 function Mob:mousereleased (x,y,button,isTouch)
   if(self.holder) and (self.holder.key) then
 
-    if( self.dir == 0 ) and ( self.jumpPowerX ~= 0 ) or ( self.jumpPowerY ~= 0 ) and ( self.isMouseDrag ) then
+    if ( self.jumpPowerX ~= 0 ) or ( self.jumpPowerY ~= 0 ) and ( self.isMouseDrag ) then
       self.dir = 6
     end
 
@@ -100,6 +100,8 @@ function Mob:keyreleased(key)
       self.dir = 2
     elseif(key == 'd') then
       self.dir = 3
+    elseif(key == 'f') then
+      self.dir = 5
     end
 
   end
